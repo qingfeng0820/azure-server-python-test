@@ -37,12 +37,13 @@ def get_sqlserver_connection():
         raise e
 
 
-def get_user_by_id(user_id: int) -> Optional[dict]:
+def get_user_by_id(user_id: int, conn=None) -> Optional[dict]:
     """根据ID获取用户"""
     select_sql = "SELECT * FROM tb_user WHERE id = ?"
     conn = None
     try:
-        conn = get_sqlserver_connection()
+        if conn is None:
+            conn = get_sqlserver_connection()
         with conn.cursor() as cursor:
             cursor.execute(select_sql, (user_id,))
             row = cursor.fetchone()
@@ -52,14 +53,12 @@ def get_user_by_id(user_id: int) -> Optional[dict]:
                 return dict(zip(columns, row))
             else:
                 return None
-                
     except pyodbc.Error as e:
         print(f"Error fetching user: {e}")
         return None
     finally:
-        if conn != None:
+        if conn is not None:
             conn.close()
-            conn = None
 
 
 if __name__ == '__main__':

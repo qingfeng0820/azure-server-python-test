@@ -1,3 +1,6 @@
+import json
+
+from bson import ObjectId
 from fastapi import FastAPI, Form, Request, status, HTTPException
 from fastapi.responses import HTMLResponse, FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -5,7 +8,8 @@ from fastapi.templating import Jinja2Templates
 import uvicorn
 import traceback
 
-# import test_sqlserver
+import test_sqlserver
+import mongodb_client
 
 
 app = FastAPI()
@@ -39,13 +43,7 @@ async def hello(request: Request, name: str = Form(...)):
 @app.get('/users/{user_id}')
 async def get_user(user_id: int):
     try:
-        import test_sqlserver
         return test_sqlserver.get_user_by_id(user_id)
-    except ImportError as e:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Error fetching user {user_id}: {str(e)}"
-        )
     except Exception as e:
         # 记录完整错误信息到日志
         error_traceback = traceback.format_exc()
@@ -55,6 +53,18 @@ async def get_user(user_id: int):
             status_code=500,
             detail=f"Error fetching user {user_id}: {str(e)}"
         )
+
+
+@app.get('/products/{product_id}', response_model=dict)
+async def get_product(product_id: str):
+    prod = await mongodb_client.AsyncMongoDBClient("testdb").find_one("product",
+                                                                      {"_id": ObjectId(product_id)})
+    if not prod:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    prod["id"] = str(prod["_id"])
+    del prod["_id"]
+    return prod
 
 
 if __name__ == '__main__':
