@@ -4,3 +4,15 @@ jinja2
 python-multipart
 pyodbc
 motor
+
+# rag relatives
+langchain==0.3.27
+langchain-openai==0.2.9
+langchain-community==0.3.29
+langchain-chroma==0.2.5
+langgraph
+chromadb
+beautifulsoup4
+
+# jwt
+python-jose[cryptography]
