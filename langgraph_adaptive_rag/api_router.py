@@ -20,10 +20,11 @@ class QuestionRequest(BaseModel):
 async def ask_question(request: Request, question: QuestionRequest):
     current_user = await get_current_user(request)
     if question.stream:
-        def stream_generator():
-            for chunk in graph.stream_answer(question.question, current_user.id):
-                yield chunk
-        return StreamingResponse(stream_generator(), media_type="application/json")
+        # def stream_generator():
+        #     for chunk in graph.stream_answer(question.question, current_user.id):
+        #         yield chunk
+        return StreamingResponse(graph.stream_answer(question.question, current_user.id),
+                                 media_type="application/json")
     else:
         answer = graph.answer(question.question, current_user.id)
         return {"answer": answer, "status": "success"}

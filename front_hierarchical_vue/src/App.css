@@ -1,0 +1,239 @@
+/* App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #000000;
+  line-height: 1.5;
+}
+
+
+#app {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  text-align: left;
+}
+
+.container {
+  min-width: 320px;
+  max-width: 1024px;
+  width: 100%;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.header {
+  padding: 24px 30px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.question-section {
+  padding: 20px 30px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.question-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  background-color: white;
+  color: #000000;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+  font-family: inherit;
+}
+
+.question-textarea:focus {
+  border-color: #000000;
+}
+
+.submit-section {
+  padding: 20px 30px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.submit-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+  background-color: #333333;
+}
+
+.submit-button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.response-section {
+  padding: 24px 30px;
+}
+
+.response-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #000000;
+}
+
+.response-content {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  max-height: 400px;
+}
+
+.response-content p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #000000;
+}
+
+.response-content strong {
+  font-weight: 600;
+  color: #000000;
+}
+
+.qa-pair {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  background-color: #fafafa;
+}
+
+.qa-pair:last-child {
+  margin-bottom: 0;
+}
+
+.question-display {
+  background-color: #e3f2fd;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  border-left: 4px solid #2196f3;
+}
+
+.answer-display {
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 4px;
+  border-left: 4px solid #4caf50;
+}
+
+.auto-wrap {
+  white-space: pre-line;     /* 保留换行符 \n */
+  word-wrap: break-word;    /* 长单词换行 */
+  word-break: break-all;    /* 任意位置换行 */
+}
+
+.scroll-overflow {
+  overflow: auto;           /* 自动显示滚动条 */
+  /* 或者 */
+  overflow-y: auto;       /* 始终显示垂直滚动条 */
+}
+
+.question-display strong,
+.answer-display strong {
+  color: #333;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .App {
+    padding: 20px 15px;
+  }
+
+  .container {
+    border-radius: 6px;
+  }
+
+  .header, .question-section, .submit-section, .response-section {
+    padding: 18px 20px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .question-textarea {
+    font-size: 15px;
+    padding: 10px 14px;
+    min-height: 70px;
+  }
+
+  .response-section h2 {
+    font-size: 17px;
+  }
+
+  .response-content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .App {
+    padding: 15px 10px;
+    display: 'flex',
+    justify-content: 'center',
+    align-items: 'center',
+  }
+
+  .header, .question-section, .submit-section, .response-section {
+    padding: 15px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .question-textarea {
+    padding: 8px 12px;
+    min-height: 60px;
+  }
+
+  .response-content {
+    padding: 15px;
+  }
+}

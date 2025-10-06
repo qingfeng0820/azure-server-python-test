@@ -3,3 +3,4 @@ __pycache__
 mytest.py
 chroma_db
 _conversation_history
+.vscode

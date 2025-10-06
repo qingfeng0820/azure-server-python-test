@@ -5,8 +5,7 @@ from langchain_community.document_loaders import WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 
-import llm_provider
-
+from comm import llm_provider
 
 CHUNK_SIZE = os.environ["EMBED_CHUNK_SIZE"] if "EMBED_CHUNK_SIZE" in os.environ else 500
 CHUNK_OVERLAP = os.environ["EMBED_CHUNK_OVERLAP"] if "EMBED_CHUNK_OVERLAP" in os.environ else 20

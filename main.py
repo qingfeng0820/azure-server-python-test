@@ -23,6 +23,9 @@ from auth.security import cleanup_expired_cache, require_login, logout_user, log
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "langgraph_adaptive_rag"))
 from langgraph_adaptive_rag.api_router import router
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "langgraph_hierarchical_agent_teams"))
+from langgraph_hierarchical_agent_teams.api_router import teams_router
+
 
 
 SESSION_CLEANUP_PERIOD = os.environ["SESSION_CLEANUP_PERIOD"] if "SESSION_CLEANUP_PERIOD" in os.environ else 3600
@@ -65,14 +68,14 @@ class ProtectedStaticFiles(StaticFiles):
 app = FastAPI(lifespan=lifespan)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 app.mount("/rag", ProtectedStaticFiles(directory="front-rag-react/dist"), name="rag")
+app.mount("/vue", ProtectedStaticFiles(directory="front_hierarchical_vue/dist"), name="vue")
 templates = Jinja2Templates(directory="templates")
 
 # CORS
 app.add_middleware(
     CORSMiddleware,
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1):\d+",  # 允许本地任意端口
     allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
         "https://shmtest-ahepbqhwbbaxf3cy.eastasia-01.azurewebsites.net",
     ],
     allow_credentials=True,
@@ -81,6 +84,7 @@ app.add_middleware(
 )
 
 app.include_router(router, prefix='/ai', tags=['ai'])
+app.include_router(teams_router, prefix='/teams', tags=['teams'])
 
 
 @app.get("/", response_class=HTMLResponse)

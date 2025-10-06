@@ -2,14 +2,14 @@ import os
 
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 
-import util
+from comm.util import singleton
 
 EMBED_MODEL_BATCH_SIZE = os.environ["EMBED_MODEL_BATCH_SIZE"] if "EMBED_MODEL_BATCH_SIZE" in os.environ else 32
 MAX_CHAT_MODEL_INPUT_LENGTH = os.environ["MAX_CHAT_MODEL_INPUT_LENGTH"] \
     if "MAX_CHAT_MODEL_INPUT_LENGTH" in os.environ else 40960
 
 
-@util.singleton
+@singleton
 def get_chat_model():
     conf = _get_model_conf()
     return ChatOpenAI(
@@ -20,7 +20,7 @@ def get_chat_model():
     )
 
 
-@util.singleton
+@singleton
 def get_embedding_model():
     conf = _get_model_conf()
     return OpenAIEmbeddings(

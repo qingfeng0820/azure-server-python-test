@@ -107,9 +107,10 @@ function App() {
 
   const handleSubmit = async () => {
       if (!question.trim()) return
+      const q = question.trim()
       setIsLoading(true)
       setQuestion("")
-      addQAPair(question)
+      addQAPair(q)
       try {
         const response = await fetch(API_SERVER + '/ai/chat/ask', {
           method: 'POST',
@@ -117,7 +118,7 @@ function App() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({question: question, stream: useStream}),
+          body: JSON.stringify({question: q, stream: useStream}),
         })
 
         if (response.ok) {
@@ -223,7 +224,7 @@ function App() {
             onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault()
-                  if (!isLoading && question.trim()) {
+                  if (!isLoading.value && question.trim() && (currentUser || !requireLogin)) {
                     handleSubmit()
                   }
                 }

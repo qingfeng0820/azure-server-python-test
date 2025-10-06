@@ -11,7 +11,7 @@ from langgraph.config import get_stream_writer
 
 import chroma_db
 import chains
-from langgraph_adaptive_rag import llm_provider
+from comm import llm_provider
 
 os.environ["USER_AGENT"] = "my-rag-app/1.0.0 (contact: developer@example.com)"
 

@@ -4,7 +4,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 
-import llm_provider
+from comm import llm_provider
 
 GENERATE_PROMPT = """You are an assistant for question-answering tasks.
 Use the following pieces of retrieved context or conversation history to answer the question.
